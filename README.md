@@ -19,10 +19,10 @@
 ├── package.json
 ├── src
 │   ├── App.vue
-│   ├── assets
-│   │   ├── logo.png
+│   ├── assets       放置一些js/css/image
+│   │   ├── logo.png  
 │   │   └── vux_logo.png
-│   ├── components
+│   ├── components   放置登录界面 和一些
 │   │   ├── Hello.vue
 │   │   └── HelloFromVux.vue
 │   ├── main.js
