@@ -20,10 +20,13 @@
 ├── src
 │   ├── App.vue
 │   ├── assets
+│   │   ├── logo.png
+│   │   └── vux_logo.png
 │   ├── components
+│   │   ├── Hello.vue
+│   │   └── HelloFromVux.vue
 │   ├── main.js
 │   └── router
+│       └── index.js
 ├── static
 └── test
-    ├── e2e
-    └── unit
