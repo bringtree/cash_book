@@ -82,13 +82,12 @@
       form: {
         // 这里有个this的问题 不要改成箭头函数
         handler: function (value) {
-          const that = this
           if ((value.password === value.password2) &&
             (value.password.length > 0) &&
             (value.username.length > 0) &&
             (value.invitationCode.length === 16)
           ) {
-            that.registerBtn = false
+            this.registerBtn = false
           }
         },
         deep: true
