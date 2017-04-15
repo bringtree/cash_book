@@ -7,6 +7,10 @@
         <img slot="right" class="weui-vcode-img" :src="authCodeSrc">
       </x-input>
     </group>
+    <toast v-model="success" type="text">{{2}}</toast>
+    // 成功~~~~~~~~~~~~~
+    <toast v-model="error" type="warn">{{1}}</toast>
+    // 失败~~~~~~~~~~~~~~~~~~~~~
     <flexbox>
       <flexbox-item>
         <x-button type="primary" @click.native="login" :disabled="loginBtn"> 登录</x-button>
@@ -19,7 +23,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { XInput, Group, Flexbox, FlexboxItem, XButton } from 'vux'
+  import { XInput, Group, Flexbox, FlexboxItem, XButton, Toast } from 'vux'
 
   export default{
     components: {
@@ -27,7 +31,8 @@
       Group,
       Flexbox,
       FlexboxItem,
-      XButton
+      XButton,
+      Toast
     },
     data () {
       return {
@@ -37,7 +42,9 @@
           authCode: ''
         },
         authCodeSrc: 'http://weui.github.io/weui/images/vcode.jpg',
-        loginBtn: true
+        loginBtn: true,
+        success: false,
+        error: false
       }
     },
     methods: {
@@ -48,6 +55,12 @@
       goRegister () {
         console.log('gogogogo')
         // 路由之后确定再写
+      },
+      error () {
+        console.log('a')
+      },
+      success () {
+        console.log('a')
       }
     },
     watch: {
