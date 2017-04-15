@@ -13,7 +13,7 @@
     </group>
     <flexbox>
       <flexbox-item>
-        <x-button @click.native="register" type="primary"> 注册</x-button>
+        <x-button @click.native="register" type="primary" :disabled="registerBtn"> 注册</x-button>
       </flexbox-item>
       <flexbox-item>
         <x-button type="warn" @click.native="reset"> 重置</x-button>
@@ -42,13 +42,11 @@
           'password2': '',
           'mail': '',
           'invitationCode': ''
-        }
+        },
+        registerBtn: true // 按钮是否可以点击
       }
     },
     methods: {
-      change (e) {
-        console.log(this)
-      },
       reset () {
         this.form = {
           'username': '',
@@ -58,13 +56,28 @@
           'invitationCode': ''
         }
       },
+      // 这边ajax还没写
       register () {
         let form = this.form
         console.log(form)
       }
     },
     watch: {
-//      this.form:
+      // 用来计算那个登录按钮给不给点击，根据上面表格完成情况
+      form: {
+        // 这里有个this的问题 不要改成箭头函数
+        handler: function (value) {
+          const that = this
+          if ((value.password === value.password2) &&
+            (value.password.length > 0) &&
+            (value.username.length > 0) &&
+            (value.invitationCode.length === 16)
+          ) {
+            that.registerBtn = false
+          }
+        },
+        deep: true
+      }
     }
   }
 </script>
