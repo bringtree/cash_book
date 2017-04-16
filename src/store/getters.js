@@ -6,6 +6,6 @@ export default {
     return userInfo.username
   },
   getAdmin: (userInfo) => {
-    return userInfo.userInfo
+    return userInfo.admin
   }
 }
