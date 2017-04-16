@@ -70,6 +70,8 @@
             (value.password.length > 0) &&
             (value.authCode.length === 4)) {
             this.loginBtn = false
+          } else {
+            this.loginBtn = true
           }
         },
         deep: true

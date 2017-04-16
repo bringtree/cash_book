@@ -4,15 +4,18 @@
       <x-input title="用户名" type="text" v-model="form.username" placeholder="请输入用户名" required></x-input>
       <x-input title="密码" type="password" v-model="form.password" placeholder="输入长度不小于6，不大于20" :min="6" :max="20"
                required></x-input>
-      <x-input title="确认密码" v-model="form.password2" type="password" placeholder="重复上面输入" :equal-with="form.password"
+      <x-input title="确认密码" v-model="form.password2" type="password" placeholder="重复上面输入" :min="6" :max="20"
+               :equal-with="form.password"
                required></x-input>
       <x-input title="邮箱" name="email" v-model="form.mail" placeholder="请输入邮箱地址" is-type="email" required></x-input>
       <x-input title="邀请码" name="invitationCode" v-model="form.invitationCode" placeholder="请输入16位的邀请码" :min="16"
                :max="16"
                required></x-input>
     </group>
-    <toast v-model="success" type="text">{{2}}</toast>// 成功~~~~~~~~~~~~~
-    <toast v-model="error" type="warn">{{1}}</toast>// 失败~~~~~~~~~~~~~~~~~~~~~
+    <toast v-model="success" type="text">{{2}}</toast>
+    // 成功~~~~~~~~~~~~~
+    <toast v-model="error" type="warn">{{1}}</toast>
+    // 失败~~~~~~~~~~~~~~~~~~~~~
     <flexbox>
       <flexbox-item>
         <x-button @click.native="register" type="primary" :disabled="registerBtn"> 注册</x-button>
@@ -88,6 +91,8 @@
             (value.invitationCode.length === 16)
           ) {
             this.registerBtn = false
+          } else {
+            this.registerBtn = true
           }
         },
         deep: true
