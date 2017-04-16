@@ -5,6 +5,10 @@ import login from '@/components/login'
 import home from '@/components/home'
 import menu from '@/components/menu'
 import personalCenter from '@/components/personalCenter'
+import addBill from '@/components/addBill'
+import search from '@/components/search'
+import statistics from '@/components/statistics'
+import admin from '@/components/admin'
 Vue.use(Router)
 
 export default new Router({
@@ -27,6 +31,22 @@ export default new Router({
         {
           path: 'menu',
           component: menu
+        },
+        {
+          path: 'addBill',
+          component: addBill
+        },
+        {
+          path: 'search',
+          component: search
+        },
+        {
+          path: 'statistics',
+          component: statistics
+        },
+        {
+          path: 'admin',
+          component: admin
         },
         {
           path: 'personalcenter',
