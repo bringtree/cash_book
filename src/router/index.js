@@ -2,13 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import register from '@/components/register'
 import login from '@/components/login'
-import home from '@/components/home'
-import menu from '@/components/menu'
-import personalCenter from '@/components/personalCenter'
-import addBill from '@/components/addBill'
-import search from '@/components/search'
-import statistics from '@/components/statistics'
-import admin from '@/components/admin'
 Vue.use(Router)
 
 export default new Router({
@@ -26,31 +19,31 @@ export default new Router({
     {
       path: '/home',
       name: 'home',
-      component: home,
+      component: resolve => require(['../components/home'], resolve),
       children: [
         {
           path: 'menu',
-          component: menu
+          component: resolve => require(['../components/menu'], resolve)
         },
         {
           path: 'addBill',
-          component: addBill
+          component: resolve => require(['../components/addBill'], resolve)
         },
         {
           path: 'search',
-          component: search
+          component: resolve => require(['../components/search'], resolve)
         },
         {
           path: 'statistics',
-          component: statistics
+          component: resolve => require(['../components/statistics'], resolve)
         },
         {
           path: 'admin',
-          component: admin
+          component: resolve => require(['../components/admin'], resolve)
         },
         {
           path: 'personalcenter',
-          component: personalCenter
+          component: resolve => require(['../components/personalCenter'], resolve)
         }
       ]
     }
