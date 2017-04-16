@@ -38,7 +38,7 @@ router.post('/api/reg2', (ctx) => {
 
 router.get('/api/invitationCode', (ctx) => {
   ctx.body = {
-    'type':'success',
+    'type': 'success',
     'message': '1234567890123456',
   }
 })
@@ -47,6 +47,27 @@ router.post('/api/resetpassword', (ctx) => {
   ctx.body = {
     'type': 'success',
     'message': '修改成功'
+  }
+})
+
+router.get('/api/logout', (ctx) => {
+  ctx.body = {
+    'type': 'success',
+    'message': '登出成功'
+  }
+})
+
+router.post('/api/logout', (ctx) => {
+  ctx.body = {
+    'type': 'success',
+    'message': '登出成功'
+  }
+})
+//务必要双引号  不要用replace 要不万一用户 名字有个单引号就要出事了
+router.get('/api/info', (ctx) => {
+  ctx.body = {
+    'type': 'success',
+    'message': '{"username": "xiaohong", "admin": "true"}'
   }
 })
 

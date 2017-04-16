@@ -17,7 +17,7 @@
         <img slot="icon" src="../assets/images/admin.png">
         <span slot="label">管理员</span>
       </grid-item>
-      <grid-item @click.native = "logout">
+      <grid-item @click.native="logout">
         <img slot="icon" src="../assets/images/loginout.png">
         <span slot="label">登出</span>
       </grid-item>
@@ -26,6 +26,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import router from '../router/index'
   import { Grid, GridItem, GroupTitle } from 'vux'
 
   export default {
@@ -35,16 +36,12 @@
       GroupTitle
     },
     methods: {
-      onItemClick () {
-        console.log('on item click')
-      },
       logout () {
-        this.$http.get('XXXXXXXX')
-          .then(function (response) {
-            console.log(response)
-          })
-          .catch(function (err) {
-            console.log(err)
+        this.$http.get('/api/logout')
+          .then(function (res) {
+            if (res.data.type === 'success') {
+              router.push('/login')
+            }
           })
       }
     }
