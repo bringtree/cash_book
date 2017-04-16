@@ -2,15 +2,16 @@
  * Created by huangpeisong on 2017/4/16.
  */
 import {
-  IMPORTNAME
+  IMPORTINFO
 } from './types'
 
 import state from './user'
 import getters from './getters'
 
 const mutations = {
-  [IMPORTNAME] (userInfo, username) {
-    userInfo.username = username
+  [IMPORTINFO] (userInfo, info) {
+    userInfo.username = info.username
+    userInfo.admin = info.admin
   }
 }
 

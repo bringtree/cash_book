@@ -3,7 +3,7 @@
  */
 const state = {
   'username': 'xiaoming',
-  'admin': true
+  'admin': false
 }
 
 export default state

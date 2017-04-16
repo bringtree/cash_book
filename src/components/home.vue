@@ -1,8 +1,5 @@
 <template>
   <div>
-    <!--<div>-->
-    <!--{{getName}}-->
-    <!--</div>-->
     <div>
       <router-view></router-view>
     </div>
@@ -36,7 +33,7 @@
     ]),
     methods: {},
     mounted: function () {
-      this.$store.dispatch('importName', 'xiaohong')
+      this.$store.dispatch('importName', {'username': 'xiaohong', 'admin': 'true'})
     }
 
   }
