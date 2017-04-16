@@ -3,7 +3,6 @@
  */
 export default {
   getName: (userInfo) => {
-    console.log(userInfo)
     return userInfo.username
   }
 }
