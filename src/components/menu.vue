@@ -17,6 +17,10 @@
         <img slot="icon" src="../assets/images/admin.png">
         <span slot="label">管理员</span>
       </grid-item>
+      <grid-item @click.native = "logout">
+        <img slot="icon" src="../assets/images/loginout.png">
+        <span slot="label">登出</span>
+      </grid-item>
     </grid>
   </div>
 </template>
@@ -33,6 +37,15 @@
     methods: {
       onItemClick () {
         console.log('on item click')
+      },
+      logout () {
+        this.$http.get('XXXXXXXX')
+          .then(function (response) {
+            console.log(response)
+          })
+          .catch(function (err) {
+            console.log(err)
+          })
       }
     }
   }

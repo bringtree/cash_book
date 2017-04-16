@@ -17,9 +17,6 @@
       <flexbox-item>
         <x-button @click.native="modify" type="primary" :disabled="modifyBtn"> 修改</x-button>
       </flexbox-item>
-      <flexbox-item>
-        <x-button type="warn" @click.native="logout"> 注销</x-button>
-      </flexbox-item>
     </flexbox>
 
     <group title="管理员功能" v-show="getAdmin">
@@ -76,15 +73,6 @@
         this.$http.get('XXXXXXXX')
           .then(function (res) {
             console.log(res)
-          })
-          .catch(function (err) {
-            console.log(err)
-          })
-      },
-      logout () {
-        this.$http.get('XXXXXXXX')
-          .then(function (response) {
-            console.log(response)
           })
           .catch(function (err) {
             console.log(err)
