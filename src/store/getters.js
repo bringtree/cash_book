@@ -4,5 +4,8 @@
 export default {
   getName: (userInfo) => {
     return userInfo.username
+  },
+  getAdmin: (userInfo) => {
+    return userInfo.userInfo
   }
 }

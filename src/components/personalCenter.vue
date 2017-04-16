@@ -22,7 +22,7 @@
       </flexbox-item>
     </flexbox>
 
-    <group title="管理员功能" v-show="admin">
+    <group title="管理员功能" v-show="getAdmin">
       <x-input title="邀请码" name="invitationCode" v-model="form.invitationCode" :min="16"
                :max="16"
       ></x-input>
@@ -58,8 +58,7 @@
         },
         modifyBtn: true, // 按钮是否可以点击
         error: false,
-        success: false,
-        admin: false
+        success: false
       }
     },
     methods: {
@@ -121,7 +120,8 @@
       }
     },
     computed: mapGetters([
-      'getName'
+      'getName',
+      'getAdmin'
     ])
   }
 </script>
