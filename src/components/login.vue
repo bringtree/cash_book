@@ -7,10 +7,8 @@
         <img slot="right" class="weui-vcode-img" :src="authCodeSrc">
       </x-input>
     </group>
-    <toast v-model="success" type="text">{{2}}</toast>
-    // 成功~~~~~~~~~~~~~
-    <toast v-model="error" type="warn">{{1}}</toast>
-    // 失败~~~~~~~~~~~~~~~~~~~~~
+    <toast v-model="success">{{msg}}</toast>
+    <toast v-model="error" type="warn">{{msg}}</toast>
     <flexbox>
       <flexbox-item>
         <x-button type="primary" @click.native="login" :disabled="loginBtn"> 登录</x-button>
@@ -23,6 +21,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import router from '../router/index'
   import { XInput, Group, Flexbox, FlexboxItem, XButton, Toast } from 'vux'
 
   export default{
@@ -44,23 +43,36 @@
         authCodeSrc: 'http://weui.github.io/weui/images/vcode.jpg',
         loginBtn: true,
         success: false,
-        error: false
+        error: false,
+        msg: ''
       }
     },
     methods: {
       login: function () {
         var form = this.form
-        console.log(form)
+        const that = this
+        // ajax地址没给
+        this.$http.post('/api/log', form)
+          .then(function (res) {
+            if (res.data.type === 'success') {
+              that.success = true
+              that.error = false
+              that.msg = res.data.message
+              router.push('home/menu')
+            } else {
+              that.error = true
+              that.success = false
+              that.msg = res.data.message
+            }
+          })
+          .catch(function () {
+            that.error = true
+            that.success = false
+            that.msg = '请检查网络'
+          })
       },
       goRegister () {
-        console.log('gogogogo')
-        // 路由之后确定再写
-      },
-      error () {
-        console.log('a')
-      },
-      success () {
-        console.log('a')
+        router.push('register')
       }
     },
     watch: {

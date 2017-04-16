@@ -72,22 +72,10 @@
         }
         this.error = !this.error
       },
-      // 这边ajax还没写
-      register () {
-        let form = this.form
-        this.$http.post('XXXXXXXX', form)
-          .then(function (response) {
-            console.log(response)
-          })
-          .catch(function (err) {
-            console.log(err)
-          })
-        console.log(form)
-      },
       produce () {
         this.$http.get('XXXXXXXX')
-          .then(function (response) {
-            console.log(response)
+          .then(function (res) {
+            console.log(res)
           })
           .catch(function (err) {
             console.log(err)

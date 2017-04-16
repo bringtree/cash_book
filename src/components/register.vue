@@ -12,10 +12,8 @@
                :max="16"
                required></x-input>
     </group>
-    <toast v-model="success" type="text">{{2}}</toast>
-    // 成功~~~~~~~~~~~~~
-    <toast v-model="error" type="warn">{{1}}</toast>
-    // 失败~~~~~~~~~~~~~~~~~~~~~
+    <toast v-model="success">{{msg}}</toast>
+    <toast v-model="error" type="warn">{{msg}}</toast>
     <flexbox>
       <flexbox-item>
         <x-button @click.native="register" type="primary" :disabled="registerBtn"> 注册</x-button>
@@ -50,7 +48,7 @@
           'mail': '',
           'invitationCode': ''
         },
-        content: 'aaaa',
+        msg: '',
         registerBtn: true, // 按钮是否可以点击
         error: false,
         success: false
@@ -67,17 +65,27 @@
         }
         this.error = !this.error
       },
-      // 这边ajax还没写
+      // 这边ajax地址还没写
       register () {
         let form = this.form
-        this.$http.post('XXXXXXXX', form)
-          .then(function (response) {
-            console.log(response)
+        const that = this
+        this.$http.post('/api/log2', form)
+          .then(function (res) {
+            if (res.data.type === 'success') {
+              that.success = true
+              that.error = false
+              that.msg = res.data.message
+            } else {
+              that.error = true
+              that.success = false
+              that.msg = res.data.message
+            }
           })
-          .catch(function (err) {
-            console.log(err)
+          .catch(function () {
+            that.error = true
+            that.success = false
+            that.msg = '请检查网络'
           })
-        console.log(form)
       }
     },
     watch: {
