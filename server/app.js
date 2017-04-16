@@ -7,7 +7,6 @@ const router = require('koa-router')()
 
 const bodyParser = require('koa-bodyparser')
 
-
 app.use(bodyParser())
 
 router.post('/api/log', (ctx) => {
@@ -37,10 +36,23 @@ router.post('/api/reg2', (ctx) => {
   }
 })
 
+router.get('/api/invitationCode', (ctx) => {
+  ctx.body = {
+    'type':'success',
+    'message': '1234567890123456',
+  }
+})
+
+router.post('/api/resetpassword', (ctx) => {
+  ctx.body = {
+    'type': 'success',
+    'message': '修改成功'
+  }
+})
+
 app
   .use(router.routes())
-  .use(router.allowedMethods());
-
+  .use(router.allowedMethods())
 
 app.listen(3000)
 

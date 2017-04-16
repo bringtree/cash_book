@@ -9,10 +9,8 @@
                required>
       </x-input>
     </group>
-    <toast v-model="success" type="text">{{2}}</toast>
-    // 成功~~~~~~~~~~~~~
-    <toast v-model="error" type="warn">{{1}}</toast>
-    // 失败~~~~~~~~~~~~~~~~~~~~~
+    <toast v-model="success" type="text">{{msg}}</toast>
+    <toast v-model="error" type="warn">{{msg}}</toast>
     <flexbox>
       <flexbox-item>
         <x-button @click.native="modify" type="primary" :disabled="modifyBtn"> 修改</x-button>
@@ -20,7 +18,7 @@
     </flexbox>
 
     <group title="管理员功能" v-show="getAdmin">
-      <x-input title="邀请码" name="invitationCode" v-model="form.invitationCode" :min="16"
+      <x-input title="邀请码" name="invitationCode" v-model="invitationCode" :min="16"
                :max="16"
       ></x-input>
       <x-button @click.native="produce" type="primary"> 生成</x-button>
@@ -50,12 +48,13 @@
       return {
         form: {
           'password': '',
-          'password2': '',
-          'invitationCode': ''
+          'password2': ''
         },
         modifyBtn: true, // 按钮是否可以点击
         error: false,
-        success: false
+        success: false,
+        invitationCode: '',
+        msg: ''
       }
     },
     methods: {
@@ -70,12 +69,44 @@
         this.error = !this.error
       },
       produce () {
-        this.$http.get('XXXXXXXX')
+        const that = this
+        this.$http.get('/api/invitationCode')
           .then(function (res) {
-            console.log(res)
+            if (res.data.type === 'success') {
+              that.success = false
+              that.error = false
+              that.invitationCode = res.data.message
+              that.msg = ''
+            } else {
+              that.success = false
+              that.error = true
+              that.msg = res.data.message
+            }
           })
-          .catch(function (err) {
-            console.log(err)
+          .catch(function () {
+            that.success = false
+            that.error = true
+            that.msg = '网络故障'
+          })
+      },
+      modify () {
+        const that = this
+        this.$http.post('/api/resetpassword')
+          .then(function (res) {
+            if (res.data.type === 'success') {
+              that.success = true
+              that.error = false
+              that.msg = res.data.message
+            } else {
+              that.success = false
+              that.error = true
+              that.msg = res.data.message
+            }
+          })
+          .catch(function () {
+            that.success = false
+            that.error = true
+            that.msg = '网络故障'
           })
       }
     },
