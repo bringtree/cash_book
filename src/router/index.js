@@ -46,6 +46,11 @@ export default new Router({
           component: resolve => require(['../components/personalCenter'], resolve)
         }
       ]
+    },
+    {
+      path: '/',
+      name: 'login',
+      component: login
     }
   ]
 })
