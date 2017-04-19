@@ -1,19 +1,19 @@
 <template>
   <div class="grid-center">
     <grid :rows="2">
-      <grid-item link="/home/addBill">
+      <grid-item link="/addBill">
         <img slot="icon" src="../assets/images/add.png">
         <span slot="label">添加账单</span>
       </grid-item>
-      <grid-item link="/home/search">
+      <grid-item link="/search">
         <img slot="icon" src="../assets/images/search.png">
         <span slot="label">搜索账单</span>
       </grid-item>
-      <grid-item link="/home/statistics">
+      <grid-item link="/statistics">
         <img slot="icon" src="../assets/images/statistics.png">
         <span slot="label">统计账单</span>
       </grid-item>
-      <grid-item link="/home/admin">
+      <grid-item link="/admin">
         <img slot="icon" src="../assets/images/admin.png">
         <span slot="label">管理员</span>
       </grid-item>

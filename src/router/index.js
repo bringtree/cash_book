@@ -2,6 +2,10 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import register from '@/components/register'
 import login from '@/components/login'
+import addBill from '@/components/addBill'
+import search from '@/components/search'
+import statistics from '@/components/statistics'
+import admin from '@/components/admin'
 Vue.use(Router)
 
 export default new Router({
@@ -26,26 +30,26 @@ export default new Router({
           component: resolve => require(['../components/menu'], resolve)
         },
         {
-          path: 'addBill',
-          component: resolve => require(['../components/addBill'], resolve)
-        },
-        {
-          path: 'search',
-          component: resolve => require(['../components/search'], resolve)
-        },
-        {
-          path: 'statistics',
-          component: resolve => require(['../components/statistics'], resolve)
-        },
-        {
-          path: 'admin',
-          component: resolve => require(['../components/admin'], resolve)
-        },
-        {
           path: 'personalcenter',
           component: resolve => require(['../components/personalCenter'], resolve)
         }
       ]
+    },
+    {
+      path: '/addBill',
+      component: addBill
+    },
+    {
+      path: '/search',
+      component: search
+    },
+    {
+      path: '/statistics',
+      component: statistics
+    },
+    {
+      path: '/admin',
+      component: admin
     },
     {
       path: '/',

@@ -10,19 +10,21 @@
       <datetime title="选择时间" v-model="Form.endDateTime" format="YYYY-MM-DD HH:mm" @on-change="change"></datetime>
     </group>
 
-    <flexbox>
-      <flexbox-item>
-        <div class="flex-demo">
-          <x-button type="primary">搜索</x-button>
-        </div>
-      </flexbox-item>
+    <box gap="10px 10px">
+      <flexbox>
+        <flexbox-item>
+          <div class="flex-demo">
+            <x-button type="primary">搜索</x-button>
+          </div>
+        </flexbox-item>
 
-      <flexbox-item>
-        <div class="flex-demo">
-          <x-button type="primary">搜索全部</x-button>
-        </div>
-      </flexbox-item>
-    </flexbox>
+        <flexbox-item>
+          <div class="flex-demo">
+            <x-button type="primary">搜索全部</x-button>
+          </div>
+        </flexbox-item>
+      </flexbox>
+    </box>
     
 
     <group>
@@ -34,10 +36,11 @@
 
 
 <script>
-  import { Flexbox, FlexboxItem, CellFormPreview, Cell, XButton, Datetime, Group, XHeader } from 'vux'
+  import { Box, Flexbox, FlexboxItem, CellFormPreview, Cell, XButton, Datetime, Group, XHeader } from 'vux'
   
   export default {
     components: {
+      Box,
       Flexbox,
       FlexboxItem,
       CellFormPreview,
@@ -75,7 +78,7 @@
 
 
 <style lang="less">
-@import '~vux/src/styles/1px.less';
+
 
 .flex-demo {
   text-align: center;
