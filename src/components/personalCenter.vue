@@ -2,7 +2,7 @@
   <div>
     <cell title="用户名" :value="getName"></cell>
     <group title="修改密码">
-      <x-input title="密码" type="password" v-model="form.oldPassword" placeholder="输入长度不小于6，不大于20" :min="6" :max="20"
+      <x-input title="原始密码" type="password" v-model="form.oldPassword" placeholder="输入长度不小于6，不大于20" :min="6" :max="20"
                required></x-input>
       <x-input title="密码" type="password" v-model="form.password" placeholder="输入长度不小于6，不大于20" :min="6" :max="20"
                required></x-input>
@@ -120,7 +120,7 @@
         // 然后这里也是验证用户输入规范 按钮是否可以点击
         handler: function (value) {
           this.modifyBtn = !((value.password === value.password2) &&
-          (value.password.length > 0))
+          (value.password.length > 0) && (value.oldPassword.length > 0))
         },
         deep: true
       }
