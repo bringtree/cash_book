@@ -77,14 +77,11 @@
     },
     watch: {
       form: {
+        // 用于判断用户是否按照要求输入 若有的话 按钮可点击
         handler: function (value) {
-          if ((value.username.length > 0) &&
-            (value.password.length > 0) &&
-            (value.authCode.length === 4)) {
-            this.loginBtn = false
-          } else {
-            this.loginBtn = true
-          }
+          this.loginBtn = !((value.username.length > 0) &&
+          (value.password.length > 0) &&
+          (value.authCode.length === 4))
         },
         deep: true
       }
