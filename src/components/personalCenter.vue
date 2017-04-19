@@ -2,6 +2,8 @@
   <div>
     <cell title="用户名" :value="getName"></cell>
     <group title="修改密码">
+      <x-input title="密码" type="password" v-model="form.oldPassword" placeholder="输入长度不小于6，不大于20" :min="6" :max="20"
+               required></x-input>
       <x-input title="密码" type="password" v-model="form.password" placeholder="输入长度不小于6，不大于20" :min="6" :max="20"
                required></x-input>
       <x-input title="确认密码" v-model="form.password2" type="password" placeholder="重复上面输入" :min="6" :max="20"
@@ -16,7 +18,6 @@
         <x-button @click.native="modify" type="primary" :disabled="modifyBtn"> 修改</x-button>
       </flexbox-item>
     </flexbox>
-
     <group title="管理员功能" v-show="getAdmin">
       <x-input title="邀请码" name="invitationCode" v-model="invitationCode" :min="16"
                :max="16"
@@ -47,6 +48,7 @@
     data () {
       return {
         form: {
+          'oldPassword': '',
           'password': '',
           'password2': ''
         },
@@ -61,6 +63,7 @@
       reset () {
         this.form = {
           'username': '',
+          'oldPassword': '',
           'password': '',
           'password2': '',
           'mail': '',
@@ -91,7 +94,7 @@
       },
       modify () {
         const that = this
-        this.$http.post('/api/resetpassword')
+        this.$http.post('/api/resetpassword', that.form)
           .then(function (res) {
             if (res.data.type === 'success') {
               that.success = true
@@ -114,14 +117,10 @@
       // 用来计算那个登录按钮给不给点击，根据上面表格完成情况
       form: {
         // 这里有个this的问题 不要改成箭头函数
+        // 然后这里也是验证用户输入规范 按钮是否可以点击
         handler: function (value) {
-          if ((value.password === value.password2) &&
-            (value.password.length > 0)
-          ) {
-            this.modifyBtn = false
-          } else {
-            this.modifyBtn = true
-          }
+          this.modifyBtn = !((value.password === value.password2) &&
+          (value.password.length > 0))
         },
         deep: true
       }
