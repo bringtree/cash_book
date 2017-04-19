@@ -93,15 +93,10 @@
       form: {
         // 这里有个this的问题 不要改成箭头函数
         handler: function (value) {
-          if ((value.password === value.password2) &&
-            (value.password.length > 0) &&
-            (value.username.length > 0) &&
-            (value.invitationCode.length === 16)
-          ) {
-            this.registerBtn = false
-          } else {
-            this.registerBtn = true
-          }
+          this.registerBtn = !((value.password === value.password2) &&
+          (value.password.length > 0) &&
+          (value.username.length > 0) &&
+          (value.invitationCode.length === 16))
         },
         deep: true
       }

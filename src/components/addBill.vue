@@ -3,7 +3,8 @@
     <x-header>添加账单<a slot="right">保存</a></x-header>
 
     <group title="内容">
-      <x-textarea v-model="Form.content" :max="30" placeholder="请输入详细内容" :show-counter="true" :height="50" :rows="6" :cols="30"></x-textarea>
+      <x-textarea v-model="Form.content" :max="30" placeholder="请输入详细内容" :show-counter="true" :height="50" :rows="6"
+                  :cols="30"></x-textarea>
     </group>
 
     <group title="经手人">
