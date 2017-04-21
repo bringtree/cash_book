@@ -62,7 +62,16 @@
             } else {
               that.error = true
               that.success = false
-              that.msg = res.data.message
+              that.msg = res.data.message // 登陆错误的时候验证码重新刷新
+              that.$http.get('/auth/getAuthCode')
+                .then(function (res) {
+                  that.authCodeSrc = res.data.url
+                })
+                .catch(function () {
+                  that.error = true
+                  that.success = false
+                  that.msg = '请检查网络'
+                })
             }
           })
           .catch(function () {

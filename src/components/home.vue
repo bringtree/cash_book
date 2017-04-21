@@ -41,7 +41,7 @@
     methods: {},
     mounted: function () {
       const that = this
-      this.$http.get('/api/info')
+      this.$http.get('/auth/getUser')
         .then(function (res) {
           if (res.data.type === 'success') {
             let info = res.data.message
