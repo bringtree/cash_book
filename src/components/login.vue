@@ -78,7 +78,7 @@
         const that = this
         this.$http.get('/auth/getAuthCode')
           .then(function (res) {
-            that.authCodeSrc = res.data.url;
+            that.authCodeSrc = res.data.url
           })
           .catch(function () {
             that.error = true
@@ -102,7 +102,7 @@
       const that = this
       this.$http.get('/auth/getAuthCode')
         .then(function (res) {
-          that.authCodeSrc = res.data.url;
+          that.authCodeSrc = res.data.url
         })
         .catch(function () {
           that.error = true

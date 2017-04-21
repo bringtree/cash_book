@@ -40,7 +40,7 @@
     data () {
       return {
         success: false,
-        error: false,
+        error: false
       }
     },
     methods: {
@@ -55,7 +55,7 @@
           .catch(function () {
             that.error = true
             that.success = false
-            console.log('登出失败');
+            console.log('登出失败')
           })
       }
     }
