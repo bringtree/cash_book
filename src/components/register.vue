@@ -69,7 +69,7 @@
       register () {
         let form = this.form
         const that = this
-        this.$http.post('/api/log2', form)
+        this.$http.post('/auth/register', form)
           .then(function (res) {
             if (res.data.type === 'success') {
               that.success = true

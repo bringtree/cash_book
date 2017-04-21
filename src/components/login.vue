@@ -4,7 +4,7 @@
       <x-input title="登录" v-model="form.username" required></x-input>
       <x-input title="密码" type="password" v-model="form.password" required></x-input>
       <x-input title="验证码" v-model="form.authCode" :min="4" :max="4" required>
-        <img slot="right" class="weui-vcode-img" :src="authCodeSrc">
+        <img slot="right" class="weui-vcode-img" :src="authCodeSrc" @click.native="updateAuthCode">
       </x-input>
     </group>
     <toast v-model="success">{{msg}}</toast>
@@ -52,7 +52,7 @@
         var form = this.form
         const that = this
         // ajax地址没给
-        this.$http.post('/api/log', form)
+        this.$http.post('/auth/login', form)
           .then(function (res) {
             if (res.data.type === 'success') {
               that.success = true
@@ -73,6 +73,18 @@
       },
       goRegister () {
         router.push('register')
+      },
+      updateAuthCode () {
+        const that = this
+        this.$http.get('/auth/getAuthCode')
+          .then(function (res) {
+            that.authCodeSrc = res.data.url;
+          })
+          .that(function () {
+            that.error = true
+            that.success = false
+            that.msg = '请检查网络'
+          })
       }
     },
     watch: {
@@ -85,6 +97,18 @@
         },
         deep: true
       }
+    },
+    mounted: function () {
+      const that = this
+      this.$http.get('/auth/getAuthCode')
+        .then(function (res) {
+          that.authCodeSrc = res.data.url;
+        })
+        .catch(function () {
+          that.error = true
+          that.success = false
+          that.msg = '请检查网络'
+        })
     }
   }
 </script>

@@ -37,11 +37,14 @@
     },
     methods: {
       logout () {
-        this.$http.get('/api/logout')
+        this.$http.get('/auth/logout')
           .then(function (res) {
             if (res.data.type === 'success') {
               router.push('/login')
             }
+          })
+          .catch(function () {
+            console.log('登出失败');
           })
       }
     }
