@@ -3,8 +3,8 @@
     <group>
       <x-input title="登录" v-model="form.username" required></x-input>
       <x-input title="密码" type="password" v-model="form.password" required></x-input>
-      <x-input title="验证码" v-model="form.authCode" :min="4" :max="4" required>
-        <img slot="right" class="weui-vcode-img" :src="authCodeSrc" @click.native="updateAuthCode">
+      <x-input title="验证码" v-model="form.authCode" :min="4" :max="10" required>
+        <img slot="right" class="weui-vcode-img" :src="authCodeSrc" @click="updateAuthCode">
       </x-input>
     </group>
     <toast v-model="success">{{msg}}</toast>
@@ -93,7 +93,7 @@
         handler: function (value) {
           this.loginBtn = !((value.username.length > 0) &&
           (value.password.length > 0) &&
-          (value.authCode.length === 4))
+          (value.authCode.length >= 4))
         },
         deep: true
       }

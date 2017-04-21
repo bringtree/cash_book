@@ -28,8 +28,8 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/api':{
-        target: 'http://localhost:3000',
+      '/auth':{
+        target: 'http://202.116.163.202:8081',
         changeOrigin: true
       }
     },
