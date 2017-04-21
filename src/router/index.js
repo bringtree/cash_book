@@ -6,6 +6,7 @@ import addBill from '@/components/addBill'
 import search from '@/components/search'
 import statistics from '@/components/statistics'
 import admin from '@/components/admin'
+import details from '@/components/details'
 Vue.use(Router)
 
 export default new Router({
@@ -37,19 +38,28 @@ export default new Router({
     },
     {
       path: '/addBill',
+      name: 'addBill',
       component: addBill
     },
     {
       path: '/search',
+      name: 'search',
       component: search
     },
     {
       path: '/statistics',
+      name: 'statistics',
       component: statistics
     },
     {
       path: '/admin',
+      name: 'admin',
       component: admin
+    },
+    {
+      path: '/details',
+      name: 'details',
+      component: details
     },
     {
       path: '/',

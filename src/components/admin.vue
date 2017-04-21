@@ -28,22 +28,24 @@
     
 
     <group>
-      <cell title="Total" value="￥1024"></cell>
-      <cell-form-preview :list="list"></cell-form-preview>
+      <cell-box v-for="Form in formLists" :key="Form.index" is-link @click.native="goToDetails(Form.index, Form)">
+        {{ Form.username }} - {{ Form.created_at }}
+      </cell-box>
     </group>
+
   </div>
 </template>
 
 
 <script>
-  import { Box, Flexbox, FlexboxItem, CellFormPreview, Cell, XButton, Datetime, Group, XHeader } from 'vux'
+  import { Box, Flexbox, FlexboxItem, CellBox, Cell, XButton, Datetime, Group, XHeader } from 'vux'
   
   export default {
     components: {
       Box,
       Flexbox,
       FlexboxItem,
-      CellFormPreview,
+      CellBox,
       Cell,
       XButton,
       Group,
@@ -56,21 +58,40 @@
           startDateTime: '',
           endDateTime: ''
         },
-        list: [{
-          label: 'Apple',
-          value: '3.29'
-        }, {
-          label: 'Banana',
-          value: '1.04'
-        }, {
-          label: 'Fish',
-          value: '8.00'
-        }]
+        formLists: [
+          {
+            id: '1',
+            index: '1',
+            content: '买花',
+            username: 'Z',
+            type: '支出',
+            created_at: '2017-04-19 16:09',
+            money: '100',
+            check: '否',
+            handle_way: '无',
+            handle_name: '无'
+          },
+          {
+            id: '10',
+            index: '2',
+            content: '拉赞助',
+            username: 'A',
+            type: '收入',
+            created_at: '2017-04-18 16:09',
+            money: '1000',
+            check: '是',
+            handle_way: '支付宝',
+            handle_name: 'W'
+          }
+        ]
       }
     },
     methods: {
       change (value) {
         console.log('change', value)
+      },
+      goToDetails: function (index, Form) {
+        this.$router.push({ path: 'details', query: { index: index, Form: Form } })
       }
     }
   }
