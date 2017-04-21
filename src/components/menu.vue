@@ -45,6 +45,7 @@
     },
     methods: {
       logout () {
+        const that = this
         this.$http.get('/auth/logout')
           .then(function (res) {
             if (res.data.type === 'success') {
