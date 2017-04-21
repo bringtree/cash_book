@@ -40,7 +40,7 @@
           password: '',
           authCode: ''
         },
-        authCodeSrc: 'http://weui.github.io/weui/images/vcode.jpg',
+        authCodeSrc: '',
         loginBtn: true,
         success: false,
         error: false,
@@ -80,7 +80,7 @@
           .then(function (res) {
             that.authCodeSrc = res.data.url;
           })
-          .that(function () {
+          .catch(function () {
             that.error = true
             that.success = false
             that.msg = '请检查网络'

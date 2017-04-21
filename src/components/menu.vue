@@ -22,6 +22,8 @@
         <span slot="label">登出</span>
       </grid-item>
     </grid>
+    <toast v-model="success">{{msg}}</toast>
+    <toast v-model="error" type="warn">{{msg}}</toast>
   </div>
 </template>
 
@@ -35,6 +37,12 @@
       GridItem,
       GroupTitle
     },
+    data () {
+      return {
+        success: false,
+        error: false,
+      }
+    },
     methods: {
       logout () {
         this.$http.get('/auth/logout')
@@ -44,6 +52,8 @@
             }
           })
           .catch(function () {
+            that.error = true
+            that.success = false
             console.log('登出失败');
           })
       }
