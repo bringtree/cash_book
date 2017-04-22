@@ -7,6 +7,8 @@ import search from '@/components/search'
 import statistics from '@/components/statistics'
 import admin from '@/components/admin'
 import details from '@/components/details'
+import clearBill from '@/components/clearBill'
+import modify from '@/components/modify'
 Vue.use(Router)
 
 export default new Router({
@@ -60,6 +62,16 @@ export default new Router({
       path: '/details',
       name: 'details',
       component: details
+    },
+    {
+      path: '/clearBill',
+      name: 'clearBill',
+      component: clearBill
+    },
+    {
+      path: '/modify',
+      name: 'modify',
+      component: modify
     },
     {
       path: '/',

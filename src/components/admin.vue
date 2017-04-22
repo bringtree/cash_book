@@ -28,7 +28,7 @@
     
 
     <group>
-      <cell-box v-for="Form in formLists" :key="Form.index" is-link @click.native="goToDetails(Form.index, Form)">
+      <cell-box v-for="Form in formLists" :key="Form.index" is-link @click.native="goToClearBill(Form.index, Form)">
         {{ Form.username }} - {{ Form.created_at }}
       </cell-box>
     </group>
@@ -90,8 +90,8 @@
       change (value) {
         console.log('change', value)
       },
-      goToDetails: function (index, Form) {
-        this.$router.push({ path: 'details', query: { index: index, Form: Form } })
+      goToClearBill: function (index, Form) {
+        this.$router.push({ path: 'clearBill', query: { index: index, Form: Form } })
       }
     }
   }

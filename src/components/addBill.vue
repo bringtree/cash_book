@@ -47,7 +47,7 @@
           dateTime: '',
           money: ''
         },
-        list: [{key: 'income', value: '收入'}, {key: 'expend', value: '支出'}]
+        list: [{key: '收入', value: '收入'}, {key: '支出', value: '支出'}]
       }
     },
     methods: {

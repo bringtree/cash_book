@@ -1,6 +1,6 @@
 <template>
   <div>
-    <x-header>账单详情</x-header>
+    <x-header>清账详情</x-header>
 
     <group>
       <cell title="内容" :value="Form.content"></cell>
@@ -12,15 +12,21 @@
       <cell title="清账方式" :value="Form.handle_way"></cell>
       <cell title="清账内容" :value="Form.handle_name"></cell>
     </group>
+
+    <box gap="10px 10px">
+      <x-button type="primary" @click.native="goToModify">点击清账</x-button>
+    </box>
   </div>
 </template>
 
 
 <script>
-  import { Cell, XHeader, Group } from 'vux'
+  import { Box, XButton, Cell, XHeader, Group } from 'vux'
 
   export default {
     components: {
+      Box,
+      XButton,
       Cell,
       XHeader,
       Group
@@ -31,8 +37,12 @@
       }
     },
     methods: {
+      goToModify: function () {
+        this.$router.push({path: 'modify', query: { Form: this.Form }})
+      }
     },
     mounted: function () {
+      // 将详细信息传过来后放到这个Form
       this.Form = this.$route.query.Form
     }
   }
