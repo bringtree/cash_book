@@ -31,9 +31,14 @@
       }
     },
     methods: {
+      getData: function () {
+        this.Form = this.$route.query.Form
+      }
     },
-    mounted: function () {
-      this.Form = this.$route.query.Form
+    beforeRouteEnter: (to, from, next) => {
+      next(vm => {
+        vm.getData()
+      })
     }
   }
 </script>

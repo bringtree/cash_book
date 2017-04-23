@@ -39,11 +39,15 @@
     methods: {
       goToModify: function () {
         this.$router.push({path: 'modify', query: { Form: this.Form }})
+      },
+      getData: function () {
+        this.Form = this.$route.query.Form
       }
     },
-    mounted: function () {
-      // 将详细信息传过来后放到这个Form
-      this.Form = this.$route.query.Form
+    beforeRouteEnter: (to, from, next) => {
+      next(vm => {
+        vm.getData()
+      })
     }
   }
 </script>

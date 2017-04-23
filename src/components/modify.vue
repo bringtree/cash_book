@@ -36,6 +36,9 @@
     data () {
       return {
         Form: {},
+        success: false,
+        error: false,
+        msg: '',
         list: [{key: '是', value: '是'}, {key: '否', value: '否'}],
         list_type: [{key: '支付宝', value: '支付宝'}, {key: '微信', value: '微信'}, {key: '银行卡', value: '银行卡'}, {key: '现金', value: '现金'}]
       }
@@ -43,6 +46,22 @@
     methods: {
       submitData: function () {
         console.log(this.Form)
+        var Form = this.Form
+        const _this = this
+        this.$http.post('/bills/clearBill', Form)
+          .then(function (res) {
+            if (res.data.type === 'success') {
+              _this.success = true
+              _this.error = false
+              _this.msg = res.data.message
+              // 缺少清账完的跳转
+            }
+          })
+          .catch(function () {
+            _this.success = false
+            _this.error = true
+            _this.msg = '请检查网络'
+          })
       }
     },
     mounted: function () {
