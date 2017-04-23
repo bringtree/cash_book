@@ -67,7 +67,7 @@ router.post('/auth/logout', (ctx) => {
 router.get('/auth/getUser', (ctx) => {
   ctx.body = {
     'type': 'success',
-    'message': '{"username": "xiaohong", "admin": "false"}'
+    'message': '{"username": "xiaohong", "admin": "true"}'
   }
 })
 

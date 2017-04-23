@@ -18,7 +18,7 @@
         <x-button @click.native="modify" type="primary" :disabled="modifyBtn"> 修改</x-button>
       </flexbox-item>
     </flexbox>
-    <group title="管理员功能" v-show="power">
+    <group title="管理员功能" v-show="power=='true'">
       <x-input title="邀请码" name="invitationCode" v-model="invitationCode" :min="16"
                :max="16"
       ></x-input>
@@ -31,7 +31,7 @@
 
 <script>
   import { XInput, Group, Alert, XButton, FlexboxItem, Flexbox, ToastPlugin, Toast, Cell } from 'vux'
-  import { mapGetters } from 'vuex'
+  //  import { mapGetters } from 'vuex'
 
   export default {
     components: {
@@ -126,10 +126,14 @@
         deep: true
       }
     },
-    computed: mapGetters([
-      'getName',
-      'getAdmin'
-    ]),
+    computed: {
+      getName () {
+        return this.$store.state.mutations.username
+      },
+      power: function () {
+        return this.$store.state.mutations.admin
+      }
+    },
     mounted: function () {
       this.power = this.$store.state.mutations.admin
       console.log(this.$store.state.mutations.admin)
