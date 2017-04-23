@@ -29,18 +29,20 @@
 
 <script type="text/ecmascript-6">
   import router from '../router/index'
-  import { Grid, GridItem, GroupTitle } from 'vux'
+  import { Grid, GridItem, GroupTitle, Toast } from 'vux'
 
   export default {
     components: {
       Grid,
       GridItem,
-      GroupTitle
+      GroupTitle,
+      Toast
     },
     data () {
       return {
         success: false,
-        error: false
+        error: false,
+        msg: ''
       }
     },
     methods: {

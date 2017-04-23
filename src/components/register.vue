@@ -48,7 +48,6 @@
           'mail': '',
           'invitationCode': ''
         },
-        msg: '',
         registerBtn: true, // 按钮是否可以点击
         error: false,
         success: false
@@ -79,6 +78,7 @@
               that.error = true
               that.success = false
               that.msg = res.data.message
+              console.log(res.data.message)
             }
           })
           .catch(function () {
