@@ -31,7 +31,7 @@
 
 <script>
   import { XInput, Group, Alert, XButton, FlexboxItem, Flexbox, ToastPlugin, Toast, Cell } from 'vux'
-  //  import { mapGetters } from 'vuex'
+  import { mapGetters } from 'vuex'
 
   export default {
     components: {
@@ -126,14 +126,10 @@
         deep: true
       }
     },
-    computed: {
-      getName () {
-        return this.$store.state.mutations.username
-      },
-      power: function () {
-        return this.$store.state.mutations.admin
-      }
-    },
+    computed: mapGetters([
+      'getName',
+      'getAdmin'
+    ]),
     mounted: function () {
       this.power = this.$store.state.mutations.admin
       console.log(this.$store.state.mutations.admin)
