@@ -3,11 +3,11 @@
     <x-header>搜索账单</x-header>
 
     <group>
-      <x-input v-model="handlerName" placeholder="请输入要搜索的姓名" required></x-input>
+      <x-input v-model="username" placeholder="请输入要搜索的姓名" required></x-input>
     </group>
 
     <box gap="10px 10px">
-      <x-button type="primary">搜索</x-button>
+      <x-button type="primary" @click.native="getResults">搜索</x-button>
     </box>
 
     <group>
@@ -35,39 +35,34 @@
     },
     data () {
       return {
-        handlerName: '',
-        formLists: [
-          {
-            id: '1',
-            index: '1',
-            content: '买花',
-            username: 'Z',
-            type: '支出',
-            created_at: '2017-04-19 16:09',
-            money: '100',
-            check: '否',
-            handle_way: '无',
-            handle_name: '无'
-          },
-          {
-            id: '10',
-            index: '2',
-            content: '拉赞助',
-            username: 'A',
-            type: '收入',
-            created_at: '2017-04-18 16:09',
-            money: '1000',
-            check: '是',
-            handle_way: '支付宝',
-            handle_name: 'W'
-          }
-        ]
-
+        username: '',
+        success: false,
+        error: false,
+        msg: '',
+        formLists: []
       }
     },
     methods: {
       goToDetails: function (index, Form) {
-        this.$router.push({ path: 'details', query: { index: index, Form: Form } })
+        this.$router.push({ name: 'details', params: { index: index, Form: Form } })
+      },
+      getResults: function () {
+        const _this = this
+        var username = this.username
+        this.$http.post('/bills/searchBill', username)
+          .then(function (res) {
+            if (res.data.type === 'success') {
+              _this.success = true
+              _this.error = false
+              _this.msg = res.data.message
+              _this.formLists = res.data.data
+            }
+          })
+          .catch(function () {
+            _this.success = false
+            _this.error = true
+            _this.msg = '请检查网络'
+          })
       }
     }
   }
