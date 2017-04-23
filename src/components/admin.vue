@@ -51,12 +51,12 @@
     },
     methods: {
       goToClearBill: function (index, Form) {
-        this.$router.push({ path: 'clearBill', query: { index: index, Form: Form } })
+        this.$router.push({ name: 'clearBill', params: { index: index, Form: Form } })
       },
       getResults: function () {
         const _this = this
         var timeForm = this.timeForm
-        this.$http.post('http://localhost/search.php', timeForm)
+        this.$http.post('/bills/getBills', timeForm)
           .then(function (res) {
             if (res.data.type === 'success') {
               _this.success = true

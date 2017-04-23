@@ -32,7 +32,7 @@
     },
     methods: {
       getData: function () {
-        this.Form = this.$route.query.Form
+        this.Form = this.$route.params.Form
       }
     },
     beforeRouteEnter: (to, from, next) => {

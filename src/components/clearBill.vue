@@ -38,10 +38,10 @@
     },
     methods: {
       goToModify: function () {
-        this.$router.push({path: 'modify', query: { Form: this.Form }})
+        this.$router.push({name: 'modify', params: { Form: this.Form }})
       },
       getData: function () {
-        this.Form = this.$route.query.Form
+        this.Form = this.$route.params.Form
       }
     },
     beforeRouteEnter: (to, from, next) => {

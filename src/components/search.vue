@@ -44,12 +44,12 @@
     },
     methods: {
       goToDetails: function (index, Form) {
-        this.$router.push({ path: 'details', query: { index: index, Form: Form } })
+        this.$router.push({ name: 'details', params: { index: index, Form: Form } })
       },
       getResults: function () {
         const _this = this
         var username = this.username
-        this.$http.post('http://localhost/search.php', username)
+        this.$http.post('/bills/searchBill', username)
           .then(function (res) {
             if (res.data.type === 'success') {
               _this.success = true
