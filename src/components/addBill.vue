@@ -60,8 +60,9 @@
       saveBill: function () {
         var Form = this.Form
         const _this = this
-        this.$http.post('/bills/addBill', Form)
+        this.$http.post('http://localhost/addBill.php', Form)
           .then(function (res) {
+            console.log(res)
             if (res.data.type === 'success') {
               _this.success = true
               _this.error = false

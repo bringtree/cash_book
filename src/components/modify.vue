@@ -48,8 +48,9 @@
         console.log(this.Form)
         var Form = this.Form
         const _this = this
-        this.$http.post('/bills/clearBill', Form)
+        this.$http.post('http://localhost/save.php', Form)
           .then(function (res) {
+            console.log(res)
             if (res.data.type === 'success') {
               _this.success = true
               _this.error = false
