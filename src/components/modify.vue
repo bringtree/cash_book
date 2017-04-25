@@ -42,7 +42,9 @@
       return {
         Form: {},
         index: '',
-        changeData: [],
+        changeDatas: {
+          changeData: []
+        },
         success: false,
         error: false,
         msg: '',
@@ -57,9 +59,9 @@
         const _this = this
         if (Form.check && Form.handle_way && Form.handle_name) {
           // 之前挖的坑，写的api有问题，导致只能再加一层
-          this.changeData.push(Form)
+          this.changeDatas.changeData.push(Form)
           this.check_submit = false
-          this.$http.post('/bills/clearBill', this.changeData)
+          this.$http.post('/bills/clearBill', this.changeDatas)
           .then(function (res) {
             if (res.data.type === 'success') {
               _this.success = true
@@ -89,7 +91,7 @@
       },
       editStorage: function () {
         // 修改清账完后的数据，与sessionStorage的数据同步
-        localStorage.hmt_changeData = JSON.stringify(this.changeData)
+        localStorage.hmt_changeData = JSON.stringify(this.changeDatas.changeData)
         let bills = JSON.parse(localStorage.hmt_formLists)
         bills[this.index - 1].check = this.Form.check
         bills[this.index - 1].handle_way = this.Form.handle_way
