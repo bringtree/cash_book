@@ -18,7 +18,7 @@
         <x-button @click.native="modify" type="primary" :disabled="modifyBtn"> 修改</x-button>
       </flexbox-item>
     </flexbox>
-    <group title="管理员功能" v-show="power=='true'">
+    <group title="管理员功能" v-show="getAdmin!='false'">
       <x-input title="邀请码" name="invitationCode" v-model="invitationCode" :min="16"
                :max="16"
       ></x-input>
@@ -129,11 +129,7 @@
     computed: mapGetters([
       'getName',
       'getAdmin'
-    ]),
-    mounted: function () {
-      this.power = this.$store.state.mutations.admin
-      console.log(this.$store.state.mutations.admin)
-    }
+    ])
   }
 </script>
 
