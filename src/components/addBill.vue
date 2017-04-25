@@ -59,6 +59,7 @@
         success: false,
         error: false,
         msg: '',
+        // 检验信息是否完整
         check_submit: false
       }
     },

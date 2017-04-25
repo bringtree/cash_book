@@ -3,7 +3,7 @@
     <x-header @on-click-back="goToMenu" :left-options="{preventGoBack: true}">管理员-清账</x-header>
 
     <group title="起始时间">
-      <datetime title="选择时间" v-model="timeForm.startDateTime" format="YYYY-MM-DD HH:mm"></datetime>
+      <datetime title="选择时间" v-model="timeForm.beginDateTime" format="YYYY-MM-DD HH:mm"></datetime>
     </group>
 
     <group title="终止时间">
@@ -26,6 +26,7 @@
 
     <divider v-if="nodata">已无更多数据</divider>
 
+    <toast v-model="check_submit" type="warn">请输入要搜索的时间段</toast>
     <toast v-model="error" type="warn">{{msg}}</toast>
   </div>
 </template>
@@ -49,7 +50,7 @@
     data () {
       return {
         timeForm: {
-          startDateTime: '',
+          beginDateTime: '',
           endDateTime: ''
         },
         success: false,
@@ -61,7 +62,9 @@
         // 当前页面数据的条数
         count: 0,
         // 是否显示divider(无更多数据)
-        nodata: false
+        nodata: false,
+        // 检验信息是否完整
+        check_submit: false
       }
     },
     methods: {
@@ -71,7 +74,9 @@
       getResults: function () {
         const _this = this
         var timeForm = this.timeForm
-        this.$http.post('/bills/getBills', timeForm)
+        if (timeForm.beginDateTime && timeForm.endDateTime) {
+          this.check_submit = false
+          this.$http.post('/bills/getBills', timeForm)
           .then(function (res) {
             if (res.data.type === 'success') {
               _this.success = true
@@ -102,6 +107,9 @@
             _this.error = true
             _this.msg = '请检查网络'
           })
+        } else {
+          this.check_submit = true
+        }
       },
       // 点击加载更多的时候执行
       getMore: function () {
@@ -123,6 +131,8 @@
         }
       },
       initData: function () {
+        this.timeForm.beginDateTime = ''
+        this.timeForm.endDateTime = ''
         this.formLists = []
         this.count = 0
         this.nodata = false

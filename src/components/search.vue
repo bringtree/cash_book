@@ -3,7 +3,7 @@
     <x-header>搜索账单</x-header>
 
     <group>
-      <x-input v-model="username" placeholder="请输入要搜索的姓名" required></x-input>
+      <x-input v-model="username" placeholder="请输入要搜索的姓名"></x-input>
     </group>
 
     <box gap="10px 10px">
@@ -22,6 +22,7 @@
 
     <divider v-if="nodata">已无更多数据</divider>
 
+    <toast v-model="check_submit" type="warn">请输入要搜索的姓名</toast>
     <toast v-model="error" type="warn">{{msg}}</toast>
   </div>
 </template>
@@ -54,17 +55,22 @@
         // 当前页面数据的条数
         count: 0,
         // 是否显示divider(无更多数据)
-        nodata: false
+        nodata: false,
+        // 检验信息是否完整
+        check_submit: false
       }
     },
     methods: {
       goToDetails: function (index, Form) {
-        this.$router.push({ name: 'details', params: { index: index, Form: Form } })
+        this.$router.push({name: 'details', params: {index: index, Form: Form}})
       },
       getResults: function () {
         const _this = this
         var username = this.username
-        this.$http.post('/bills/searchBill', username)
+<<<<<<< HEAD
+        if (this.username) {
+          this.check_submit = false
+          this.$http.post('/bills/searchBill', username)
           .then(function (res) {
             if (res.data.type === 'success') {
               _this.success = true
@@ -95,6 +101,47 @@
             _this.error = true
             _this.msg = '请检查网络'
           })
+        } else {
+          this.check_submit = true
+=======
+        if (this.username === '') {
+          _this.success = false
+          _this.error = true
+          _this.msg = '输入不能为空'
+        } else {
+          this.$http.post('/bills/searchBill', username)
+            .then(function (res) {
+              if (res.data.type === 'success') {
+                _this.success = true
+                _this.error = false
+                _this.msg = res.data.message
+                // 取得返回的data存进localStorage
+                localStorage.hmt_formLists = JSON.stringify(res.data.data)
+              }
+              // 这是取得数据后展示的初始数据(一般为10条)
+              let bills = JSON.parse(localStorage.hmt_formLists)
+              for (let i = 0; i < 10; i++) {
+                if (bills[i] != null) {
+                  _this.formLists.push(bills[i])
+                  _this.count = i + 1
+                } else {
+                  // 如果数据不满10条时显示
+                  _this.nodata = true
+                  break
+                }
+              }
+              // 数据满10条时显示
+              if (_this.formLists.length === 10) {
+                _this.show = true
+              }
+            })
+            .catch(function () {
+              _this.success = false
+              _this.error = true
+              _this.msg = '请检查网络'
+            })
+>>>>>>> 3319cf54b59ca60216062ea1c7aa3c2a237527a2
+        }
       },
       // 点击加载更多的时候执行
       getMore: function () {
@@ -116,6 +163,7 @@
         }
       },
       initData: function () {
+        this.username = ''
         this.formLists = []
         this.count = 0
         this.nodata = false
