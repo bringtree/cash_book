@@ -17,15 +17,20 @@
     <box gap="10px 10px">
       <x-button type="primary" @click.native="submitData">保存</x-button>
     </box>
+
+    <toast v-model="check_submit" type="warn">请完善清账信息</toast>
+    <toast v-model="success">{{msg}}</toast>
+    <toast v-model="error" type="warn">{{msg}}</toast>
   </div>
 </template>
 
 
 <script>
-  import { Selector, XInput, Group, Box, XButton, XHeader } from 'vux'
+  import { Toast, Selector, XInput, Group, Box, XButton, XHeader } from 'vux'
 
   export default {
     components: {
+      Toast,
       Selector,
       XInput,
       Group,
@@ -36,36 +41,61 @@
     data () {
       return {
         Form: {},
+        index: '',
+        changeData: [],
         success: false,
         error: false,
         msg: '',
+        check_submit: false,
         list: [{key: '是', value: '是'}, {key: '否', value: '否'}],
         list_type: [{key: '支付宝', value: '支付宝'}, {key: '微信', value: '微信'}, {key: '银行卡', value: '银行卡'}, {key: '现金', value: '现金'}, {key: '无', value: '无'}]
       }
     },
     methods: {
       submitData: function () {
-        console.log(this.Form)
-        var Form = this.Form
+        let Form = this.Form
         const _this = this
-        this.$http.post('/bills/clearBill', Form)
+        if (Form.check && Form.handle_way && Form.handle_name) {
+          // 之前挖的坑，写的api有问题，导致只能再加一层
+          this.changeData.push(Form)
+          this.check_submit = false
+          this.$http.post('/bills/clearBill', this.changeData)
           .then(function (res) {
-            console.log(res)
             if (res.data.type === 'success') {
               _this.success = true
               _this.error = false
               _this.msg = res.data.message
-              // 缺少清账完的跳转
             }
+            // 在这里加上跳转
+            setTimeout(function () {
+              _this.$router.push({ path: '/admin' })
+            }, 2000)
           })
           .catch(function () {
             _this.success = false
             _this.error = true
             _this.msg = '请检查网络'
           })
+        } else {
+          // 表单中有信息未完善但点击提交时触发
+          this.check_submit = true
+        }
+        this.editStorage()
       },
       getData: function () {
-        this.Form = this.$route.params.Form
+        this.index = this.$route.params.index
+        let bills = JSON.parse(localStorage.hmt_formLists)
+        this.Form = bills[this.index - 1]
+      },
+      editStorage: function () {
+        // 修改清账完后的数据，与sessionStorage的数据同步
+        localStorage.hmt_changeData = JSON.stringify(this.changeData)
+        let bills = JSON.parse(localStorage.hmt_formLists)
+        bills[this.index - 1].check = this.Form.check
+        bills[this.index - 1].handle_way = this.Form.handle_way
+        bills[this.index - 1].handle_name = this.Form.handle_name
+        localStorage.hmt_formLists = JSON.stringify(bills)
+        localStorage.hmt_changeDataIndex = this.index
       }
     },
     beforeRouteEnter: (to, from, next) => {

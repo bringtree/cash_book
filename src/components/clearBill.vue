@@ -33,21 +33,36 @@
     },
     data () {
       return {
-        Form: {}
+        Form: {},
+        index: ''
       }
     },
     methods: {
       goToModify: function () {
-        this.$router.push({name: 'modify', params: { Form: this.Form }})
+        this.$router.push({name: 'modify', params: { index: this.index, Form: this.Form }})
       },
       getData: function () {
-        this.Form = this.$route.params.Form
+        this.index = this.$route.params.index
+        let bills = JSON.parse(localStorage.hmt_formLists)
+        this.Form = bills[this.index - 1]
+      },
+      updateData: function () {
+        this.index = JSON.parse(localStorage.hmt_changeDataIndex)
+        let bills = JSON.parse(localStorage.hmt_formLists)
+        this.Form = bills[this.index - 1]
       }
     },
     beforeRouteEnter: (to, from, next) => {
-      next(vm => {
-        vm.getData()
-      })
+      // console.log(from)
+      if (from.fullPath === '/modify') {
+        next(vm => {
+          vm.updateData()
+        })
+      } else {
+        next(vm => {
+          vm.getData()
+        })
+      }
     }
   }
 </script>
