@@ -26,6 +26,7 @@
 
     <divider v-if="nodata">已无更多数据</divider>
 
+    <toast v-model="check_time" type="warn">起始时间要小于终止时间</toast>
     <toast v-model="check_submit" type="warn">请输入要搜索的时间段</toast>
     <toast v-model="error" type="warn">{{msg}}</toast>
   </div>
@@ -64,7 +65,9 @@
         // 是否显示divider(无更多数据)
         nodata: false,
         // 检验信息是否完整
-        check_submit: false
+        check_submit: false,
+        // 检验时间格式是否正确
+        check_time: false
       }
     },
     methods: {
@@ -75,43 +78,49 @@
         const _this = this
         var timeForm = this.timeForm
         if (timeForm.beginDateTime && timeForm.endDateTime) {
-          this.check_submit = false
-          this.$http.post('/bills/getBills', timeForm)
-          .then(function (res) {
-            if (res.data.type === 'success') {
-              _this.success = true
-              _this.error = false
-              _this.msg = res.data.message
-              // 取得返回的data存进localStorage
-              // 返回已经是字符串了
-              localStorage.hmt_formLists = res.data.data
-              // 这是取得数据后展示的初始数据(一般为10条)
-              let bills = JSON.parse(localStorage.hmt_formLists)
-              for (let i = 0; i < 10; i++) {
-                if (bills[i] != null) {
-                  _this.formLists.push(bills[i])
-                  _this.count = i + 1
-                } else {
-                  // 如果数据不满10条时显示
-                  _this.nodata = true
-                  break
+          if (timeForm.beginDateTime < timeForm.endDateTime) {
+            this.check_time = false
+            this.check_submit = false
+            this.$http.post('/bills/getBills', timeForm)
+            .then(function (res) {
+              if (res.data.type === 'success') {
+                _this.success = true
+                _this.error = false
+                _this.msg = res.data.message
+                // 取得返回的data存进localStorage
+                // 返回已经是字符串了
+                // localStorage.hmt_formLists = JSON.stringify(res.data.data)
+                localStorage.hmt_formLists = res.data.data
+                // 这是取得数据后展示的初始数据(一般为10条)
+                let bills = JSON.parse(localStorage.hmt_formLists)
+                for (let i = 0; i < 10; i++) {
+                  if (bills[i] != null) {
+                    _this.formLists.push(bills[i])
+                    _this.count = i + 1
+                  } else {
+                    // 如果数据不满10条时显示
+                    _this.nodata = true
+                    break
+                  }
+                  // 数据满10条时显示
+                  if (_this.formLists.length === 10) {
+                    _this.show = true
+                  }
                 }
-                // 数据满10条时显示
-                if (_this.formLists.length === 10) {
-                  _this.show = true
-                }
+              } else {
+                _this.success = false
+                _this.error = true
+                _this.msg = res.data.message
               }
-            } else {
+            })
+            .catch(function () {
               _this.success = false
               _this.error = true
-              _this.msg = res.data.message
-            }
-          })
-          .catch(function () {
-            _this.success = false
-            _this.error = true
-            _this.msg = '请检查网络'
-          })
+              _this.msg = '请检查网络'
+            })
+          } else {
+            this.check_time = true
+          }
         } else {
           this.check_submit = true
         }

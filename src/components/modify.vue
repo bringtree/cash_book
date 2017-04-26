@@ -14,6 +14,10 @@
       <x-input v-model="Form.handle_name" placeholder="请输入清账人姓名"></x-input>
     </group>
 
+    <group title="起始时间">
+      <datetime title="选择时间" v-model="Form.updated_at" format="YYYY-MM-DD HH:mm"></datetime>
+    </group>
+
     <box gap="10px 10px">
       <x-button type="primary" @click.native="submitData">保存</x-button>
     </box>
@@ -26,10 +30,11 @@
 
 
 <script>
-  import { Toast, Selector, XInput, Group, Box, XButton, XHeader } from 'vux'
+  import { Datetime, Toast, Selector, XInput, Group, Box, XButton, XHeader } from 'vux'
 
   export default {
     components: {
+      Datetime,
       Toast,
       Selector,
       XInput,
@@ -42,9 +47,6 @@
       return {
         Form: {},
         index: '',
-        changeDatas: {
-          changeData: []
-        },
         success: false,
         error: false,
         msg: '',
@@ -57,32 +59,43 @@
       submitData: function () {
         let Form = this.Form
         const _this = this
-        if (Form.check && Form.handle_way && Form.handle_name) {
+        if (Form.check && Form.handle_way && Form.handle_name && Form.updated_at) {
           // 之前挖的坑，写的api有问题，导致只能再加一层
-          this.changeDatas.changeData.push(Form)
-          this.check_submit = false
-          this.$http.post('/bills/clearBill', this.changeDatas)
-          .then(function (res) {
-            if (res.data.type === 'success') {
-              _this.success = true
-              _this.error = false
-              _this.msg = res.data.message
-            }
-            // 在这里加上跳转
-            setTimeout(function () {
-              _this.$router.push({ path: '/admin' })
-            }, 2000)
-          })
-          .catch(function () {
-            _this.success = false
-            _this.error = true
-            _this.msg = '请检查网络'
-          })
+          // 可以改掉了=.=，人生污点
+          // this.changeDatas.push(Form)
+          if ((Form.check !== '否') && (Form.handle_way !== '无') && (Form.handle_name !== '无') && (Form.updated_at !== '')) {
+            this.check_submit = false
+            this.$http.post('/bills/clearBill', Form)
+            .then(function (res) {
+              if (res.data.type === 'success') {
+                _this.success = true
+                _this.error = false
+                _this.msg = res.data.message
+                // 清账成功才会修改数据
+                _this.editStorage()
+                // 在这里加上跳转
+                setTimeout(function () {
+                  _this.$router.push({ path: '/admin' })
+                }, 2000)
+              } else {
+                _this.success = false
+                _this.error = true
+                _this.msg = res.data.message
+              }
+            })
+            .catch(function () {
+              _this.success = false
+              _this.error = true
+              _this.msg = '请检查网络'
+            })
+          } else {
+            // 账单未选择清账不允许提交
+            this.check_submit = true
+          }
         } else {
           // 表单中有信息未完善但点击提交时触发
           this.check_submit = true
         }
-        this.editStorage()
       },
       getData: function () {
         this.index = this.$route.params.index
@@ -90,12 +103,13 @@
         this.Form = bills[this.index - 1]
       },
       editStorage: function () {
-        // 修改清账完后的数据，与sessionStorage的数据同步
-        localStorage.hmt_changeData = JSON.stringify(this.changeDatas.changeData)
+        // 修改清账完后的数据，与localStorage的数据同步
+        localStorage.hmt_changeData = JSON.stringify(this.Form)
         let bills = JSON.parse(localStorage.hmt_formLists)
         bills[this.index - 1].check = this.Form.check
         bills[this.index - 1].handle_way = this.Form.handle_way
         bills[this.index - 1].handle_name = this.Form.handle_name
+        bills[this.index - 1].updated_at = this.Form.updated_at
         localStorage.hmt_formLists = JSON.stringify(bills)
         localStorage.hmt_changeDataIndex = this.index
       }

@@ -79,6 +79,7 @@
               _this.msg = res.data.message
               // 取得返回的data存进localStorage
               // 返回的data已经是字符串
+              // localStorage.hmt_formLists = JSON.stringify(res.data.data)
               localStorage.hmt_formLists = res.data.data
               // 这是取得数据后展示的初始数据(一般为10条)
               let bills = JSON.parse(localStorage.hmt_formLists)

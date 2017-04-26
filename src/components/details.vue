@@ -11,6 +11,7 @@
       <cell title="是否清账" :value="Form.check"></cell>
       <cell title="清账方式" :value="Form.handle_way"></cell>
       <cell title="清账内容" :value="Form.handle_name"></cell>
+      <cell title="清账时间" :value="Form.updated_at"></cell>
     </group>
   </div>
 </template>

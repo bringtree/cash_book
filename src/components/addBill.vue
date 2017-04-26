@@ -53,7 +53,8 @@
           money: '',
           check: '否',
           handle_way: '无',
-          handle_name: '无'
+          handle_name: '无',
+          updated_at: ''
         },
         list: [{key: '收入', value: '收入'}, {key: '支出', value: '支出'}],
         success: false,
@@ -80,6 +81,10 @@
                 _this.msg = res.data.message
                 // 增加账单成功后清除页面数据
                 _this.clearPage()
+              } else {
+                _this.success = false
+                _this.error = true
+                _this.msg = res.data.message
               }
             })
             .catch(function () {
