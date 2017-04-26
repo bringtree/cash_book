@@ -62,7 +62,6 @@
           'mail': '',
           'invitationCode': ''
         }
-        this.error = !this.error
       },
       // 这边ajax地址还没写
       register () {
