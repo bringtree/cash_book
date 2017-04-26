@@ -75,6 +75,11 @@
         this.$router.push({ name: 'details', params: { index: index, Form: Form } })
       },
       getResults: function () {
+        // 每次点击搜索前先把数据清空,初始化
+        this.formLists = []
+        this.count = 0
+        this.nodata = false
+        this.show = false
         const _this = this
         var timeForm = this.timeForm
         if (timeForm.beginDateTime && timeForm.endDateTime) {

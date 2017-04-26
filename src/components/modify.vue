@@ -14,7 +14,7 @@
       <x-input v-model="Form.handle_name" placeholder="请输入清账人姓名"></x-input>
     </group>
 
-    <group title="起始时间">
+    <group title="清账时间">
       <datetime title="选择时间" v-model="Form.updated_at" format="YYYY-MM-DD HH:mm"></datetime>
     </group>
 
