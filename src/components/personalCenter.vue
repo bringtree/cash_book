@@ -95,7 +95,7 @@
       },
       modify () {
         const that = this
-        this.$http.post('/api/resetpassword', that.form)
+        this.$http.post('/auth/modifyPassword', that.form)
           .then(function (res) {
             if (res.data.type === 'success') {
               that.success = true
