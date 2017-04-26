@@ -3,7 +3,7 @@
     <x-header>搜索账单</x-header>
 
     <group>
-      <x-input v-model="username" placeholder="请输入要搜索的姓名"></x-input>
+      <x-input v-model="Search.username" placeholder="请输入要搜索的姓名"></x-input>
     </group>
 
     <box gap="10px 10px">
@@ -45,7 +45,9 @@
     },
     data () {
       return {
-        username: '',
+        Search: {
+          username: ''
+        },
         success: false,
         error: false,
         msg: '',
@@ -66,33 +68,38 @@
       },
       getResults: function () {
         const _this = this
-        var username = this.username
-        if (this.username) {
+        var Search = this.Search
+        if (Search.username) {
           this.check_submit = false
-          this.$http.post('/bills/searchBill', username)
+          this.$http.post('/bills/searchBill', Search)
           .then(function (res) {
             if (res.data.type === 'success') {
               _this.success = true
               _this.error = false
               _this.msg = res.data.message
               // 取得返回的data存进localStorage
-              localStorage.hmt_formLists = JSON.stringify(res.data.data)
-            }
-            // 这是取得数据后展示的初始数据(一般为10条)
-            let bills = JSON.parse(localStorage.hmt_formLists)
-            for (let i = 0; i < 10; i++) {
-              if (bills[i] != null) {
-                _this.formLists.push(bills[i])
-                _this.count = i + 1
-              } else {
-                // 如果数据不满10条时显示
-                _this.nodata = true
-                break
+              // 返回的data已经是字符串
+              localStorage.hmt_formLists = res.data.data
+              // 这是取得数据后展示的初始数据(一般为10条)
+              let bills = JSON.parse(localStorage.hmt_formLists)
+              for (let i = 0; i < 10; i++) {
+                if (bills[i] != null) {
+                  _this.formLists.push(bills[i])
+                  _this.count = i + 1
+                } else {
+                  // 如果数据不满10条时显示
+                  _this.nodata = true
+                  break
+                }
               }
-            }
-            // 数据满10条时显示
-            if (_this.formLists.length === 10) {
-              _this.show = true
+              // 数据满10条时显示
+              if (_this.formLists.length === 10) {
+                _this.show = true
+              }
+            } else {
+              _this.success = false
+              _this.error = true
+              _this.msg = res.data.message
             }
           })
           .catch(function () {
@@ -124,7 +131,7 @@
         }
       },
       initData: function () {
-        this.username = ''
+        this.Search.username = ''
         this.formLists = []
         this.count = 0
         this.nodata = false

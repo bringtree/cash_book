@@ -83,22 +83,27 @@
               _this.error = false
               _this.msg = res.data.message
               // 取得返回的data存进localStorage
-              localStorage.hmt_formLists = JSON.stringify(res.data.data)
-            }
-            // 这是取得数据后展示的初始数据(一般为10条)
-            let bills = JSON.parse(localStorage.hmt_formLists)
-            for (let i = 0; i < 10; i++) {
-              if (bills[i] != null) {
-                _this.formLists.push(bills[i])
-                _this.count = i + 1
+              // 返回的data已经是字符串
+              localStorage.hmt_formLists = res.data.data
+              // 这是取得数据后展示的初始数据(一般为10条)
+              let bills = JSON.parse(localStorage.hmt_formLists)
+              for (let i = 0; i < 10; i++) {
+                if (bills[i] != null) {
+                  _this.formLists.push(bills[i])
+                  _this.count = i + 1
+                } else {
+                  // 如果数据不满10条时显示
+                  _this.nodata = true
+                  break
+                }
+                // 数据满10条时显示
+                if (_this.formLists.length === 10) {
+                  _this.show = true
+                }
               } else {
-                // 如果数据不满10条时显示
-                _this.nodata = true
-                break
-              }
-              // 数据满10条时显示
-              if (_this.formLists.length === 10) {
-                _this.show = true
+                _this.success = false
+                _this.error = true
+                _this.msg = res.data.message
               }
             }
           })
