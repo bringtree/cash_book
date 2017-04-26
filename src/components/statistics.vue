@@ -100,11 +100,11 @@
                 if (_this.formLists.length === 10) {
                   _this.show = true
                 }
-              } else {
-                _this.success = false
-                _this.error = true
-                _this.msg = res.data.message
               }
+            } else {
+              _this.success = false
+              _this.error = true
+              _this.msg = res.data.message
             }
           })
           .catch(function () {
