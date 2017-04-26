@@ -11,7 +11,7 @@
       <cell title="是否清账" :value="Form.check"></cell>
       <cell title="清账方式" :value="Form.handle_way"></cell>
       <cell title="清账人" :value="Form.handle_name"></cell>
-      <cell title="清账时间" :value="Form.updated_at"></cell>
+      <cell title="清账时间" :value="Form.updated_at" v-if="show_updated_at"></cell>
     </group>
 
     <box gap="10px 10px">
@@ -35,7 +35,8 @@
     data () {
       return {
         Form: {},
-        index: ''
+        index: '',
+        show_updated_at: true
       }
     },
     methods: {
@@ -46,11 +47,17 @@
         this.index = this.$route.params.index
         let bills = JSON.parse(localStorage.hmt_formLists)
         this.Form = bills[this.index - 1]
+        if (this.Form.check === '否') {
+          this.show_updated_at = false
+        }
       },
       updateData: function () {
         this.index = JSON.parse(localStorage.hmt_changeDataIndex)
         let bills = JSON.parse(localStorage.hmt_formLists)
         this.Form = bills[this.index - 1]
+        if (this.Form.check === '否') {
+          this.show_updated_at = false
+        }
       }
     },
     beforeRouteEnter: (to, from, next) => {

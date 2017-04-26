@@ -14,10 +14,6 @@
       <x-input v-model="Form.handle_name" placeholder="请输入清账人姓名"></x-input>
     </group>
 
-    <group title="清账时间">
-      <datetime title="选择时间" v-model="Form.updated_at" format="YYYY-MM-DD HH:mm"></datetime>
-    </group>
-
     <box gap="10px 10px">
       <x-button type="primary" @click.native="submitData">保存</x-button>
     </box>
@@ -30,11 +26,10 @@
 
 
 <script>
-  import { Datetime, Toast, Selector, XInput, Group, Box, XButton, XHeader } from 'vux'
+  import { Toast, Selector, XInput, Group, Box, XButton, XHeader } from 'vux'
 
   export default {
     components: {
-      Datetime,
       Toast,
       Selector,
       XInput,
@@ -59,11 +54,11 @@
       submitData: function () {
         let Form = this.Form
         const _this = this
-        if (Form.check && Form.handle_way && Form.handle_name && Form.updated_at) {
+        if (Form.check && Form.handle_way && Form.handle_name) {
           // 之前挖的坑，写的api有问题，导致只能再加一层
           // 可以改掉了=.=，人生污点
           // this.changeDatas.push(Form)
-          if ((Form.check !== '否') && (Form.handle_way !== '无') && (Form.handle_name !== '无') && (Form.updated_at !== '')) {
+          if ((Form.check !== '否') && (Form.handle_way !== '无') && (Form.handle_name !== '无')) {
             this.check_submit = false
             this.$http.post('/bills/clearBill', Form)
             .then(function (res) {

@@ -53,8 +53,7 @@
           money: '',
           check: '否',
           handle_way: '无',
-          handle_name: '无',
-          updated_at: ''
+          handle_name: '无'
         },
         list: [{key: '收入', value: '收入'}, {key: '支出', value: '支出'}],
         success: false,
