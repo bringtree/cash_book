@@ -121,7 +121,7 @@
         // 然后这里也是验证用户输入规范 按钮是否可以点击
         handler: function (value) {
           this.modifyBtn = !((value.password === value.password2) &&
-          (value.password.length > 0) && (value.oldPassword.length > 0))
+          (value.password.length >= 6) && (value.oldPassword.length >= 6))
         },
         deep: true
       }
