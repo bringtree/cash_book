@@ -34,9 +34,18 @@
     },
     methods: {
       getData: function () {
-        this.Form = this.$route.params.Form
+        // this.Form = this.$route.params.Form
+        // 从localStorage取得要展示的list的index
+        /*
+        * 由于是spa页面，刷新会清掉所有数据，所以刷完后点击返回，所有的数据都会不见 TT
+        **/
+        this.index = localStorage.hmt_currentDataIndex
+        let bills = JSON.parse(localStorage.hmt_formLists)
+        this.Form = bills[this.index - 1]
         if (this.Form.check === '否') {
           this.show_updated_at = false
+        } else {
+          this.show_updated_at = true
         }
       }
     },

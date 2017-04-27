@@ -15,7 +15,7 @@
     </group>
 
     <box gap="10px 10px">
-      <x-button type="primary" @click.native="goToModify">点击清账</x-button>
+      <x-button type="primary" @click.native="goToModify" v-if="check_if_allow_clear">点击清账</x-button>
     </box>
   </div>
 </template>
@@ -36,7 +36,10 @@
       return {
         Form: {},
         index: '',
-        show_updated_at: true
+        // 判断已经清账的才会显示清账时间
+        show_updated_at: true,
+        // 判断未清账的才会显示清账按钮
+        check_if_allow_clear: true
       }
     },
     methods: {
@@ -44,11 +47,20 @@
         this.$router.push({name: 'modify', params: { index: this.index, Form: this.Form }})
       },
       getData: function () {
-        this.index = this.$route.params.index
+        // this.index = this.$route.params.index
+        // 从localStorage取得要展示的list的index
+        /*
+        * 由于是spa页面，刷新会清掉所有数据，所以刷完后点击返回，所有的数据都会不见 TT
+        **/
+        this.index = localStorage.hmt_currentDataIndex
         let bills = JSON.parse(localStorage.hmt_formLists)
         this.Form = bills[this.index - 1]
         if (this.Form.check === '否') {
           this.show_updated_at = false
+          this.check_if_allow_clear = true
+        } else {
+          this.show_updated_at = true
+          this.check_if_allow_clear = false
         }
       },
       updateData: function () {
@@ -57,6 +69,10 @@
         this.Form = bills[this.index - 1]
         if (this.Form.check === '否') {
           this.show_updated_at = false
+          this.check_if_allow_clear = true
+        } else {
+          this.show_updated_at = true
+          this.check_if_allow_clear = false
         }
       }
     },

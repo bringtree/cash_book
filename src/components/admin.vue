@@ -72,6 +72,8 @@
     },
     methods: {
       goToClearBill: function (index, Form) {
+        // 取得当前的list的index存进localStorage
+        localStorage.hmt_currentDataIndex = index
         this.$router.push({ name: 'clearBill', params: { index: index, Form: Form } })
       },
       getResults: function () {

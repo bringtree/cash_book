@@ -64,6 +64,8 @@
     },
     methods: {
       goToDetails: function (index, Form) {
+        // 取得当前的list的index存进localStorage
+        localStorage.hmt_currentDataIndex = index
         this.$router.push({name: 'details', params: {index: index, Form: Form}})
       },
       getResults: function () {
