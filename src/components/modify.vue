@@ -26,7 +26,7 @@
 
 
 <script>
-  import { Toast, Selector, XInput, Group, Box, XButton, XHeader } from 'vux'
+  import { dateFormat, Toast, Selector, XInput, Group, Box, XButton, XHeader } from 'vux'
 
   export default {
     components: {
@@ -52,6 +52,8 @@
     },
     methods: {
       submitData: function () {
+        // 在这里自动获取当前时间赋给updated_at，不给用户自己选择
+        this.Form.updated_at = dateFormat(new Date(), 'YYYY-MM-DD HH:mm')
         let Form = this.Form
         const _this = this
         if (Form.check && Form.handle_way && Form.handle_name) {

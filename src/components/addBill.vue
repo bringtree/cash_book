@@ -53,7 +53,8 @@
           money: '',
           check: '否',
           handle_way: '无',
-          handle_name: '无'
+          handle_name: '无',
+          updated_at: ''
         },
         list: [{key: '收入', value: '收入'}, {key: '支出', value: '支出'}],
         success: false,
@@ -65,6 +66,7 @@
     },
     methods: {
       saveBill: function () {
+        this.Form.updated_at = this.Form.created_at
         var Form = this.Form
         // 取得当前的this，方便在回调函数中使用
         const _this = this
