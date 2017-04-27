@@ -95,20 +95,21 @@
         }
       },
       getData: function () {
-        this.index = this.$route.params.index
+        this.index = localStorage.hmt_currentDataIndex
+        // this.index = this.$route.params.index
         let bills = JSON.parse(localStorage.hmt_formLists)
         this.Form = bills[this.index - 1]
       },
       editStorage: function () {
         // 修改清账完后的数据，与localStorage的数据同步
-        localStorage.hmt_changeData = JSON.stringify(this.Form)
+        // localStorage.hmt_changeData = JSON.stringify(this.Form)
         let bills = JSON.parse(localStorage.hmt_formLists)
         bills[this.index - 1].check = this.Form.check
         bills[this.index - 1].handle_way = this.Form.handle_way
         bills[this.index - 1].handle_name = this.Form.handle_name
         bills[this.index - 1].updated_at = this.Form.updated_at
         localStorage.hmt_formLists = JSON.stringify(bills)
-        localStorage.hmt_changeDataIndex = this.index
+        // localStorage.hmt_changeDataIndex = this.index
       }
     },
     beforeRouteEnter: (to, from, next) => {

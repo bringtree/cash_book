@@ -64,7 +64,7 @@
         }
       },
       updateData: function () {
-        this.index = JSON.parse(localStorage.hmt_changeDataIndex)
+        this.index = localStorage.hmt_currentDataIndex
         let bills = JSON.parse(localStorage.hmt_formLists)
         this.Form = bills[this.index - 1]
         if (this.Form.check === '否') {
