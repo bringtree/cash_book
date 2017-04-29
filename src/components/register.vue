@@ -51,7 +51,8 @@
         },
         registerBtn: true, // 按钮是否可以点击
         error: false,
-        success: false
+        success: false,
+        'msg': ''
       }
     },
     methods: {
