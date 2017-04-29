@@ -26,6 +26,7 @@
 </template>
 
 <script>
+  import router from '../router/index'
   import { XInput, Group, Alert, XButton, FlexboxItem, Flexbox, ToastPlugin, Toast } from 'vux'
 
   export default {
@@ -63,7 +64,6 @@
           'invitationCode': ''
         }
       },
-      // 这边ajax地址还没写
       register () {
         let form = this.form
         const that = this
@@ -73,11 +73,11 @@
               that.success = true
               that.error = false
               that.msg = res.data.message
+              router.push('home/menu')
             } else {
               that.error = true
               that.success = false
               that.msg = res.data.message
-              console.log(res.data.message)
             }
           })
           .catch(function () {
