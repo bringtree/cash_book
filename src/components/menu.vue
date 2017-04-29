@@ -50,7 +50,7 @@
         this.$http.get('/auth/logout')
           .then(function (res) {
             if (res.data.type === 'success') {
-              window.location.href = '/login'
+              window.location.href = '/'
             }
           })
           .catch(function () {
