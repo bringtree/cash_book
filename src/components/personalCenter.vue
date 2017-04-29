@@ -74,7 +74,7 @@
       },
       produce () {
         const that = this
-        this.$http.get('/auth/invitationCode')
+        this.$http.get('/auth/getinvitationCode')
           .then(function (res) {
             if (res.data.type === 'success') {
               that.success = false
