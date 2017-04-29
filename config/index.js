@@ -36,7 +36,7 @@ module.exports = {
         target: 'http://202.116.163.202:8081',
         changeOrigin: true
       },
-      'bills':{
+      '/bills':{
         target: 'http://202.116.163.202:8081',
         changeOrigin: true
       },
