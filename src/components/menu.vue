@@ -28,7 +28,6 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import router from '../router/index'
   import { Grid, GridItem, GroupTitle, Toast } from 'vux'
 
   export default {
@@ -51,7 +50,7 @@
         this.$http.get('/auth/logout')
           .then(function (res) {
             if (res.data.type === 'success') {
-              router.push('/login')
+              window.location.href = '/login'
             }
           })
           .catch(function () {
