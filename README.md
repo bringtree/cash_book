@@ -1,3 +1,4 @@
+```
 ├── README.md
 ├── build
 │   ├── build.js
@@ -30,3 +31,4 @@
 │       └── index.js
 ├── static
 └── test
+```
